@@ -1,12 +1,15 @@
 package com.hanweather.app.db;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.hanweather.app.model.City;
+import com.hanweather.app.model.County;
 import com.hanweather.app.model.Province;
 
 public class HanWeatherDB {
@@ -23,8 +26,8 @@ public class HanWeatherDB {
 	}
 	//获取HANWEATHER的实例
 	public synchronized static HanWeatherDB getInstance(Context context){
-		if(hanWeatherDB=null){
-			hanWeather=new HanWeatherDB(context);
+		if(hanWeatherDB== null){
+			hanWeatherDB=new HanWeatherDB(context);
 		}
 		return hanWeatherDB;
 	}
@@ -86,4 +89,32 @@ public class HanWeatherDB {
 		return list;
 	}
 	//将Country实例存储到数据库
+	public void saveCountry(County county){
+		if(county !=null){
+			ContentValues values=new ContentValues();
+			values.put("county_name", county.getCountyName());
+			values.put("county_code", county.getaCountyCode());
+			values.put("city_id", county.getCityId());
+			db.insert("Conty", null, values);
+		}
+	}
+	//从数据库读取某城市下所有县信息
+	public List<County>loadCounties(int cityId){
+		List<County>list=new ArrayList<County>();
+		Cursor cursor=db.query("County", null, "city_id=?", new String[]{String.valueOf(cityId)}, null, null, null);
+		if(cursor.moveToFirst()){
+			do{
+				County county=new County();
+				county.setId(cursor.getInt(cursor.getColumnIndex("id")));
+				county.setCountyName(cursor.getString(cursor.getColumnIndex("county_name")));
+				county.setCountyCode(cursor.getString(cursor.getColumnIndex("county_code")));
+				county.setCityId(cityId);
+				list.add(county);
+			}while(cursor.moveToNext());
+		}
+		if(cursor !=null){
+			cursor.close();
+		}
+		return list;
+	}
 }

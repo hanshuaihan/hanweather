@@ -18,10 +18,10 @@ public class HanWeatherOpenHelper extends SQLiteOpenHelper{
 			+"city_code text,"
 			+"province_id integer)";
 	//County建表语句
-	public static final String CREATE_COUNTRY="create table Country("
+	public static final String CREATE_COUNTY="create table County("
 			+"id integer primary key autoincrement,"
-			+"country_name text,"
-			+"country_code text,"
+			+"county_name text,"
+			+"county_code text,"
 			+"city_id integer)";
 	public HanWeatherOpenHelper(Context context,String name,CursorFactory factory,int version){
 		super(context,name,factory,version);
@@ -30,7 +30,7 @@ public class HanWeatherOpenHelper extends SQLiteOpenHelper{
 	public void onCreate(SQLiteDatabase db){
 		db.execSQL(CREATE_PROVINCE);//创建PROVINCE表
 		db.execSQL(CREATE_CITY);//创建CITY表
-		db.execSQL(CREATE_COUNTRY);//创建COUNTRY表
+		db.execSQL(CREATE_COUNTY);//创建COUNTY表
 	}
 	@Override
 	public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion)
