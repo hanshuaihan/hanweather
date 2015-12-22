@@ -17,7 +17,7 @@ public class County {
 	public void setCountyName(String countyName){
 		this.countyName=countyName;
 	}
-	public String getaCountyCode(){
+	public String getCountyCode(){
 		return countyCode;
 	}
 	public void setCountyCode(String countyCode){
@@ -29,4 +29,5 @@ public class County {
 	public void setCityId(int cityId){
 		this.cityId=cityId;
 	}
+	
 }
