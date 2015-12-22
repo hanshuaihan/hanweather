@@ -23,6 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name="com.hanweather.app.activity.WeatherActivity"></activity>
+        <service android:name="com.hanweather.app.service.AutoUpdateService"></service>
+        <receiver android:name="com.hanweather.app.receiver.AutoUpdateReceive"></receiver>r
     </application>
 
 </manifest>
